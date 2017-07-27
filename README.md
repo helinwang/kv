@@ -3,6 +3,7 @@
 
 A Go key/value store service based on BoltDB.
 
+
 ## Integrate with Go
 
 Please see [here](./example_test.go)
@@ -22,3 +23,7 @@ kvctl get :8080 hello
 
 # Output: hi
 ```
+
+## Graceful Shutdown
+
+Supported.

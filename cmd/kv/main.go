@@ -1,12 +1,15 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"log"
-	"net"
 	"net/http"
 	"net/rpc"
+	"os"
+	"os/signal"
 	"strconv"
+	"time"
 
 	"github.com/boltdb/bolt"
 	"github.com/helinwang/kv"
@@ -24,16 +27,29 @@ func main() {
 	}
 
 	s := &kv.Service{DB: db}
-	rpc.Register(s)
-	rpc.HandleHTTP()
-
-	l, e := net.Listen("tcp", *ip+":"+strconv.Itoa(*port))
-	if e != nil {
-		log.Fatal("listen error:", e)
-	}
-
-	err = http.Serve(l, nil)
+	rpcSrv := rpc.NewServer()
+	err = rpcSrv.Register(s)
 	if err != nil {
 		panic(err)
 	}
+
+	srv := &http.Server{
+		Addr:    *ip + ":" + strconv.Itoa(*port),
+		Handler: rpcSrv,
+	}
+
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt)
+
+	go func() {
+		err := srv.ListenAndServe()
+		if err != nil {
+			log.Fatal("listen error:", err)
+		}
+	}()
+
+	<-stop
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	srv.Shutdown(ctx)
+	cancel()
 }
