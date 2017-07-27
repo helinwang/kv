@@ -26,4 +26,4 @@ kvctl get :8080 hello
 
 ## Graceful Shutdown
 
-Supported.
+Supported in the CLI. Please see [here](./cmd/kv/main.go)
