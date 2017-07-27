@@ -1,11 +1,11 @@
 # kv
 A Go key/value store service based on BoltDB.
 
-# Integrate with Go
+## Integrate with Go
 
 Please see [here](./example_test.go)
 
-# CLI example
+## CLI example
 
 ```bash
 go get github.com/helinwang/kv/cmd/kvctl
