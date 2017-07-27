@@ -5,7 +5,7 @@ A Go key/value store service based on [BoltDB](https://github.com/boltdb/bolt), 
 
 ## Integrate with Go
 
-Please see [here](./example_test.go)
+Please see [here](./example_test.go).
 
 ## CLI example
 
@@ -25,4 +25,4 @@ kvctl get :8080 hello
 
 ## Graceful Shutdown
 
-Supported in the CLI. Please see [here](./cmd/kv/main.go)
+Supported in the CLI. Please see [here](./cmd/kv/main.go).
