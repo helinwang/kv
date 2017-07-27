@@ -18,7 +18,7 @@ type KV struct {
 var bucket = []byte("main")
 
 // Put puts value into the service.
-func (s *Service) Put(kv KV, _ int) error {
+func (s *Service) Put(kv KV, _ *int) error {
 	return s.DB.Update(func(tx *bolt.Tx) error {
 		b, err := tx.CreateBucketIfNotExists(bucket)
 		if err != nil {
@@ -33,9 +33,10 @@ func (s *Service) Put(kv KV, _ int) error {
 // Get gets value from the service.
 func (s *Service) Get(key []byte, value *[]byte) error {
 	return s.DB.View(func(tx *bolt.Tx) error {
-		b, err := tx.CreateBucketIfNotExists(bucket)
-		if err != nil {
-			return err
+		b := tx.Bucket(bucket)
+		if b == nil {
+			// Bucket not created, no key exists yet.
+			return nil
 		}
 
 		*value = b.Get(key)

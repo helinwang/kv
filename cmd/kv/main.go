@@ -23,7 +23,7 @@ func main() {
 		panic(err)
 	}
 
-	s := kv.Service{DB: db}
+	s := &kv.Service{DB: db}
 	rpc.Register(s)
 	rpc.HandleHTTP()
 
