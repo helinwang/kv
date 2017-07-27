@@ -1,7 +1,7 @@
 # kv
 [![Build Status](https://travis-ci.org/helinwang/kv.svg?branch=master)](https://travis-ci.org/helinwang/kv)
 
-A Go key/value store service based on [BoltDB](https://github.com/boltdb/bolt), enabling accessing the BoltDB from multiple processes.
+A Go key/value store service based on [BoltDB](https://github.com/boltdb/bolt), accessing BoltDB from multiple processes.
 
 ## Integrate with Go
 
