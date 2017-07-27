@@ -1,4 +1,6 @@
 # kv
+[![Build Status](https://travis-ci.org/helinwang/kv.svg?branch=master)](https://travis-ci.org/heliwang/kv)
+
 A Go key/value store service based on BoltDB.
 
 ## Integrate with Go
